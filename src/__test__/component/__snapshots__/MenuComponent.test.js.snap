@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<header>
+  <nav
+    className="navbar navbar-expand-md navbar-dark bg-dark"
+  >
+    <div>
+      <a
+        className="navbar-brand"
+        href=""
+      >
+        Main Menu
+      </a>
+    </div>
+    <ul
+      className="navbar-nav"
+    >
+      <li>
+        <a
+          className="nav-link"
+          href="/courses"
+          onClick={[Function]}
+        >
+          Courses
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="navbar-nav navbar-collapse justify-content-end"
+    >
+      <li>
+        <a
+          className="nav-link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+`;

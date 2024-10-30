@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <h3>
+    Course
+  </h3>
+  <div
+    className="container"
+    data-testid="courseContainer"
+  >
+    <form
+      action="#"
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <fieldset
+        className="form-group"
+      >
+        <label>
+          Id
+        </label>
+        <input
+          className="form-control"
+          data-testid="courseId"
+          disabled={true}
+          name="id"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value={-1}
+        />
+      </fieldset>
+      <fieldset
+        className="form-group"
+      >
+        <label>
+          Description
+        </label>
+        <input
+          className="form-control"
+          data-testid="courseDescription"
+          name="description"
+          onBlur={[Function]}
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </fieldset>
+      <button
+        className="btn btn-success"
+        type="submit"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>
+`;

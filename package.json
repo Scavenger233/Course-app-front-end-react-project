@@ -24,23 +24,26 @@
   "jest": {
     "transformIgnorePatterns": [
       "/node_modules/(？！@axios)"
-  ],
-  "collectCoverageFrom": [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "!<rootDir>/node_modules/",
-    "!<rootDir>/src/__test__/**/*.*",
-    "!src/index.js"
-  ],
-  "coverageThreshold": {
-    "global": {
-      "branches": 90,
-      "functions": 90,
-      "lines": 90,
-      "statements": 90
-    }
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/__test__/**/*.*",
+      "!src/index.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "html"
+    ]
   },
-  "coverageReporters": ["text", "html"]
-},
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -61,5 +64,9 @@
   },
   "devDependencies": {
     "react-test-renderer": "^18.2.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

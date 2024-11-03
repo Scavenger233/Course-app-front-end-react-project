@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import withRouter from './withRouter';
+//To use formik to edit form of course details, this is the most populare framework with React.
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import CourseDataService from '../service/CourseDataService';
 const INSTRUCTOR = 'bytecaptain'
@@ -72,11 +73,13 @@ class CourseComponent extends Component {
     }
 
     render() {
+        //Creating local variable using destructing
         let { description, id } = this.state
         return (
             <div>
                 <h3>Course</h3>
                 <div data-testid="courseContainer" className="container">
+                    {/* Initialing Formik with the values loaded from state */}
                     <Formik
                         initialValues={{ id, description }}
                         onSubmit={this.onSubmit}
@@ -91,12 +94,14 @@ class CourseComponent extends Component {
                                         className="alert alert-warning" />
                                     <fieldset className="form-group">
                                         <label>Id</label>
+                                        {/* Creating a disabled text element for id. The name of element should match the name in state. */}
                                         <Field data-testid="courseId" className="form-control" type="text" name="id" disabled />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Description</label>
                                         <Field data-testid="courseDescription" className="form-control" type="text" name="description" />
                                     </fieldset>
+                                    {/* Adding a submit buttom. */}
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>
                             )

@@ -19,6 +19,7 @@ class LoginComponent extends Component {
         this.loginClicked = this.loginClicked.bind(this)
     }
 
+    // We are using events to update state as soon as values in the text fields change
     handleChange(event) {
         this.setState(
             {
@@ -28,6 +29,7 @@ class LoginComponent extends Component {
         )
     }
 
+    // LogicClicked is called when user clicks login button.
     loginClicked(context) {
         AuthenticationService
             .executeBasicAuthenticationService(this.state.username, this.state.password)

@@ -28,21 +28,29 @@ class ListCoursesComponent extends Component {
         
     }
 
-
-
     componentDidMount() {
         this.refreshCourses();
+    
+        // Check if the route state contains a message
+        const message = localStorage.getItem("message");
+        if (message) {
+            this.setState({ message });
+            localStorage.removeItem("message"); // Clear message status to prevent duplicate displays
+        }
     }
+    
+    
 
     addCourseClicked() {
-        //TODO refactor/improve this
-        this.props.navigation("/courses/-1")
+        localStorage.setItem("message", "Course created successfully!");
+        this.props.navigation("/courses/-1");
     }
-
+    
     updateCourseClicked(id) {
-        console.log('update ' + id)
-        this.props.navigation(`/courses/${id}`)
+        localStorage.setItem("message", `Course ${id} updated successfully!`);
+        this.props.navigation(`/courses/${id}`);
     }
+    
 
     refreshCourses() {
         CourseDataService.retrieveAllCourses(INSTRUCTOR)//HARDCODED

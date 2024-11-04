@@ -29,8 +29,7 @@ class ListCoursesComponent extends Component {
     }
 
     componentDidMount() {
-        this.refreshCourses();
-    
+        this.refreshCourses(); 
         // Check if the route state contains a message
         const message = localStorage.getItem("message");
         if (message) {
@@ -39,14 +38,14 @@ class ListCoursesComponent extends Component {
         }
     }
     
-    
-
     addCourseClicked() {
+        // Add notification
         localStorage.setItem("message", "Course created successfully!");
         this.props.navigation("/courses/-1");
     }
     
     updateCourseClicked(id) {
+        // Add nitification
         localStorage.setItem("message", `Course ${id} updated successfully!`);
         this.props.navigation(`/courses/${id}`);
     }

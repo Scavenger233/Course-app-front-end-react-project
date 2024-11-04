@@ -14,6 +14,8 @@ class AuthenticationService {
         return 'Basic ' + window.btoa(username + ":" + password)
     }
 
+    // when user login is successful, we can setup an axios header to added 
+    // an authorization header on every subsequent API call.
     registerSuccessfulLogin(username, password) {
         sessionStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
         this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))

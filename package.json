@@ -19,6 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --maxWorkers=2",
     "eject": "react-scripts eject",
+    "test:coverage": "react-scripts test --coverage",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"
   },
   "jest": {
@@ -63,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "react-test-renderer": "^18.2.0"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",

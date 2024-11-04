@@ -72,6 +72,7 @@ class ListCoursesComponent extends Component {
 
     render() {
 
+        // login check to see if user want to access course list page
         if (!AuthenticationService.isUserLoggedIn()) {
             this.props.navigation('/login')
         } else {

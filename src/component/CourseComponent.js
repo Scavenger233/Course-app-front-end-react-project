@@ -33,6 +33,8 @@ class CourseComponent extends Component {
 
     }
 
+    //Checking for empty description
+    //Checking for a minimum length of 5
     validate(values) {
         let errors = {}
         if (!values.description) {
@@ -90,6 +92,7 @@ class CourseComponent extends Component {
                         {
                             (props) => (
                                 <Form>
+                                    {/* Error message alert during description */}
                                     <ErrorMessage name="description" component="div"
                                         className="alert alert-warning" />
                                     <fieldset className="form-group">

@@ -32,6 +32,7 @@ class AuthenticationService {
         this.setupAxiosInterceptors("");
     }
 
+    // Sets up the axios interceptor to add the suthorization token on every subsequent REST API call
     setupAxiosInterceptors(token) {
         axios.interceptors.request.use(
             (config) => this.setAuthorizationHeader(config, token)

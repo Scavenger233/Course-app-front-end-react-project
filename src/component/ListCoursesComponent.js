@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withRouter from './withRouter';
 import CourseDataService from '../service/CourseDataService';
 import AuthenticationService from '../service/AuthenticationService';
+import DeleteAlert from './DeleteAlert';
 
 const INSTRUCTOR = 'bytecaptain';
 
@@ -13,12 +14,15 @@ class ListCoursesComponent extends Component {
         //We add courses to the state of the component and initialize it in the constructor.
         this.state = {
             courses: [],
-            message: null
+            message: null,
+            showDeleteAlert: false, // show delete box
+            courseIdToDelete: null  // Course ID to be deleted
         }
 
         this.refreshCourses = this.refreshCourses.bind(this)
         // To make sure the method is bound to this in the construtor
         this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
+        this.confirmDelete = this.confirmDelete.bind(this) // confirm deletion
         this.updateCourseClicked = this.updateCourseClicked.bind(this)
         this.addCourseClicked = this.addCourseClicked.bind(this)
         
@@ -54,19 +58,29 @@ class ListCoursesComponent extends Component {
             })
     }
 
-    // When we get a successful response for delete API call,
-    // We set a message into state and refresh the courses list
+    // Open delete confirmation box
     deleteCourseClicked(id) {
-        CourseDataService.deleteCourse(INSTRUCTOR, id)
-            .then(
-                response => {
-                    this.setState({ message: `Delete of course ${id} Successful` })
-                    this.refreshCourses()
-                }
-            ).catch(error => {
+        this.setState({ showDeleteAlert: true, courseIdToDelete: id });
+    }
+
+    
+    confirmDelete(id) {
+        const { courseIdToDelete } = this.state;
+        CourseDataService.deleteCourse(INSTRUCTOR, courseIdToDelete)
+            .then(response => {
+                    // When we get a successful response for delete API call,
+                    // We set a message into state and refresh the courses list
+                    this.setState({ 
+                        message: `Delete of course ${courseIdToDelete} Successful`,
+                        showDeleteAlert: false,
+                        courseIdToDelete: null 
+                    });
+                    this.refreshCourses();
+                })
+                .catch(error => {
                 //TODO better handle errors
                 return error;
-            })
+            });
 
     }
 
@@ -109,8 +123,19 @@ class ListCoursesComponent extends Component {
                         </table>
                     </div>
                     <div className="row">
+                        <div className="col-auto">
                         <button className="btn btn-success" onClick={this.addCourseClicked}>Add</button>
+                        </div>
                     </div>
+                    
+                    
+
+                    {/* Delete box */}
+                    <DeleteAlert
+                        show={this.state.showDeleteAlert}
+                        onClose={() => this.setState({ showDeleteAlert: false })}
+                        onDelete={this.confirmDelete}
+                    />
                 </div>
             )
         }

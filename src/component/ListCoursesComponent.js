@@ -3,6 +3,7 @@ import withRouter from './withRouter';
 import CourseDataService from '../service/CourseDataService';
 import AuthenticationService from '../service/AuthenticationService';
 import DeleteAlert from './DeleteAlert';
+import Table from 'react-bootstrap/Table';
 
 const INSTRUCTOR = 'bytecaptain';
 
@@ -103,10 +104,10 @@ class ListCoursesComponent extends Component {
                     {/* We display the notify message just below the header ALL COURSES */}
                     {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                     <div className="container">
-                        <table className="table">
+                        <Table striped bordered hover size="sm">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>ID</th>
                                     <th>Description</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -114,20 +115,33 @@ class ListCoursesComponent extends Component {
                             </thead>  
                             <tbody>
                                 {
-                                    //Connect to constructor->state(on the top of this class)
-                                    this.state.courses.map(
-                                        course =>
-                                            <tr key={course.id}>
-                                                <td>{course.id}</td>
-                                                <td>{course.description}</td>
-                                                <td><button data-testid="updateButton" className="btn btn-success" onClick={() => this.updateCourseClicked(course.id)}>Update</button></td>
-                                                {/* Add delete button on front end page */}
-                                                <td><button data-testid="deleteButton" className="btn btn-warning" onClick={() => this.deleteCourseClicked(course.id)}>Delete</button></td>
-                                            </tr>
+                                    this.state.courses.map(course =>
+                                        <tr key={course.id}>
+                                            <td>{course.id}</td>
+                                            <td>{course.description}</td>
+                                            <td>
+                                                <button 
+                                                    data-testid="updateButton" 
+                                                    className="btn btn-success" 
+                                                    onClick={() => this.updateCourseClicked(course.id)}
+                                                >
+                                                    Update
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <button 
+                                                    data-testid="deleteButton" 
+                                                    className="btn btn-warning" 
+                                                    onClick={() => this.deleteCourseClicked(course.id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
                                     )
                                 }
                             </tbody>
-                        </table>
+                        </Table>
                     </div>
                     <div className="row">
                         <div className="col-auto">

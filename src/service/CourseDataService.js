@@ -16,6 +16,12 @@ class CourseDataService {
         return axios.get(INSTRUCTOR_API_URL+'/courses/'+id);
     }
 
+    searchCourses(name, searchQuery) {
+        return axios.get(INSTRUCTOR_API_URL + '/courses/search', {
+            params: { searchQuery }  // Pass searchQuery 
+        });
+    }
+
     //Excutes the delete request to specific course api url
     deleteCourse(name, id) {
         //console.log('executed service')

@@ -17,11 +17,14 @@ class ListCoursesComponent extends Component {
             courses: [],
             message: null,
             showDeleteAlert: false, // show delete box
-            courseIdToDelete: null  // Course ID to be deleted
+            courseIdToDelete: null,  // Course ID to be deleted
+            searchQuery: ""  // For search function
         }
 
-        this.refreshCourses = this.refreshCourses.bind(this)
         // To make sure the method is bound to this in the construtor
+        this.refreshCourses = this.refreshCourses.bind(this)
+        this.handleSearchChange = this.handleSearchChange.bind(this); 
+        this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
         this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
         this.confirmDelete = this.confirmDelete.bind(this) // confirm deletion
         this.updateCourseClicked = this.updateCourseClicked.bind(this)
@@ -39,6 +42,16 @@ class ListCoursesComponent extends Component {
         }
     }
     
+    // This allows the component to "remember" what the user has typed and use it for searching.
+    handleSearchChange(event) {
+        this.setState({ searchQuery: event.target.value });
+    }
+
+    handleSearchSubmit(event) {
+        event.preventDefault(); // Prevent form submissions from refreshing the page
+        this.refreshCourses(); // Refresh course listings when submitting a search
+    }
+
     addCourseClicked() {
         // Add notification
         localStorage.setItem("message", "Course created successfully!");
@@ -53,17 +66,27 @@ class ListCoursesComponent extends Component {
     
 
     refreshCourses() {
-        CourseDataService.retrieveAllCourses(INSTRUCTOR)//HARDCODED
-            .then(
-                //When the response comes back with data, we update the state
-                response => {
-                    console.log(response);
-                    this.setState({ courses: response.data })
-                }
-            ).catch(error => {
-                //TODO better handle errors https://axios-http.com/docs/handling_errors
-                return error;
-            })
+        const { searchQuery } = this.state;
+
+        if (searchQuery) {
+
+            CourseDataService.searchCourses(INSTRUCTOR, searchQuery)
+                .then(response => {
+                    this.setState({ courses: response.data });
+                })
+                .catch(error => {
+                    console.error("Error fetching search results:", error);
+                });
+        } else {
+            // Return all courses when there is no key words
+            CourseDataService.retrieveAllCourses(INSTRUCTOR)
+                .then(response => {
+                    this.setState({ courses: response.data });
+                })
+                .catch(error => {
+                    console.error("Error fetching courses:", error);
+                });
+        }
     }
 
     // Open delete confirmation box
@@ -103,6 +126,22 @@ class ListCoursesComponent extends Component {
                     <h3>All Courses</h3>
                     {/* We display the notify message just below the header ALL COURSES */}
                     {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
+                    
+                    {/* Search bar */}
+                    <nav className="navbar navbar-light bg-light justify-content-end">
+                        <form className="form-inline" onSubmit={this.handleSearchSubmit}>
+                            <input 
+                                className="form-control mr-sm-2" 
+                                type="search" 
+                                placeholder="Search" 
+                                aria-label="Search" 
+                                value={this.state.searchQuery}
+                                onChange={this.handleSearchChange}
+                            />
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </nav>
+
                     <div className="container">
                         <Table striped bordered hover size="sm">
                             <thead>

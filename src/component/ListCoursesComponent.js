@@ -147,6 +147,7 @@ class ListCoursesComponent extends Component {
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Username</th>
                                     <th>Description</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -157,6 +158,7 @@ class ListCoursesComponent extends Component {
                                     this.state.courses.map(course =>
                                         <tr key={course.id}>
                                             <td>{course.id}</td>
+                                            <td>{course.username}</td>
                                             <td>{course.description}</td>
                                             <td>
                                                 <button 

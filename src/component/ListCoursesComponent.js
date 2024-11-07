@@ -67,27 +67,15 @@ class ListCoursesComponent extends Component {
 
     refreshCourses() {
         const { searchQuery } = this.state;
-
-        if (searchQuery) {
-
-            CourseDataService.searchCourses(INSTRUCTOR, searchQuery)
-                .then(response => {
-                    this.setState({ courses: response.data });
-                })
-                .catch(error => {
-                    console.error("Error fetching search results:", error);
-                });
-        } else {
-            // Return all courses when there is no key words
-            CourseDataService.retrieveAllCourses(INSTRUCTOR)
-                .then(response => {
-                    this.setState({ courses: response.data });
-                })
-                .catch(error => {
-                    console.error("Error fetching courses:", error);
-                });
-        }
+        CourseDataService.retrieveAllCourses(INSTRUCTOR, searchQuery)
+            .then(response => {
+                this.setState({ courses: response.data });
+            })
+            .catch(error => {
+                console.error("Error fetching courses:", error);
+            });
     }
+    
 
     // Open delete confirmation box
     deleteCourseClicked(id) {

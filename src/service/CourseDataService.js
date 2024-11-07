@@ -7,8 +7,10 @@ const INSTRUCTOR_API_URL = COURSE_API_URL+'/instructors/'+INSTRUCTOR
 
 class CourseDataService {
 
-    retrieveAllCourses(name) {
-        return axios.get(INSTRUCTOR_API_URL+'/courses');//, 
+    retrieveAllCourses(name, searchQuery = "") {
+        return axios.get(INSTRUCTOR_API_URL+'/courses', {
+            params: {searchQuery}
+        });//, 
         //{ headers: { authorization: 'Basic ' + window.btoa(INSTRUCTOR + ":" + PASSWORD) } });
     }
 

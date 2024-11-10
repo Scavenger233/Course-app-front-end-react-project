@@ -17,21 +17,20 @@ class CourseComponent extends Component {
     }
 
     componentDidMount() {
-        console.log(this.state.id)
-        // eslint-disable-next-line
-        debugger
-        if (this.state.id === -1) {
-            return
+        if (this.state.id === "new") {
+            // 新增课程时不需要加载现有数据
+            return;
         }
+    
         CourseDataService.retrieveCourse(INSTRUCTOR, this.state.id)
             .then(response => this.setState({
                 description: response.data.description
             })).catch(error => {
                 //TODO better handle errors
                 return error;
-            })
-
+            });
     }
+    
 
     //Checking for empty description
     //Checking for a minimum length of 5
@@ -47,32 +46,32 @@ class CourseComponent extends Component {
     }
 
     onSubmit(values) {
-        let username = INSTRUCTOR
-
+        let username = INSTRUCTOR;
+    
         let course = {
-            id: this.state.id,
             description: values.description,
             targetDate: values.targetDate
-        }
-
-        if (this.state.id === -1) {
+        };
+    
+        if (this.state.id === "new") {
             CourseDataService.createCourse(username, course)
                 .then(() => this.props.navigation('/courses'))
                 .catch(error => {
-                    //TODO better handle errors https://axios-http.com/docs/handling_errors
+                    //TODO better handle errors
                     return error;
-                })
+                });
         } else {
             CourseDataService.updateCourse(username, this.state.id, course)
                 .then(() => this.props.navigation('/courses'))
                 .catch(error => {
-                    //TODO better handle errors https://axios-http.com/docs/handling_errors
+                    //TODO better handle errors
                     return error;
-                })
+                });
         }
-
+    
         console.log(values);
     }
+    
 
     render() {
         //Creating local variable using destructing

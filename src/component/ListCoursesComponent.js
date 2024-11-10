@@ -53,10 +53,10 @@ class ListCoursesComponent extends Component {
     }
 
     addCourseClicked() {
-        // Add notification
         localStorage.setItem("message", "Course created successfully!");
-        this.props.navigation("/courses/-1");
+        this.props.navigation("/courses/new");
     }
+    
     
     updateCourseClicked(id) {
         // Add nitification

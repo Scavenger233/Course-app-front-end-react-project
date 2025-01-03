@@ -10,6 +10,7 @@ class CourseComponent extends Component {
         super(props)
         this.state = {
             id: this.props.match.params.id,
+            username:'',
             description: ''
         }
         this.onSubmit = this.onSubmit.bind(this)
@@ -24,6 +25,7 @@ class CourseComponent extends Component {
     
         CourseDataService.retrieveCourse(INSTRUCTOR, this.state.id)
             .then(response => this.setState({
+                username: response.data.username,
                 description: response.data.description
             })).catch(error => {
                 //TODO better handle errors
@@ -46,9 +48,10 @@ class CourseComponent extends Component {
     }
 
     onSubmit(values) {
-        let username = INSTRUCTOR;
+        let username = values.username;
     
         let course = {
+
             description: values.description,
             targetDate: values.targetDate
         };
@@ -75,14 +78,14 @@ class CourseComponent extends Component {
 
     render() {
         //Creating local variable using destructing
-        let { description, id } = this.state
+        let { username, description, id } = this.state
         return (
             <div>
                 <h3>Course</h3>
                 <div data-testid="courseContainer" className="container">
                     {/* Initialing Formik with the values loaded from state */}
                     <Formik
-                        initialValues={{ id, description }}
+                        initialValues={{ id, description, username }}
                         onSubmit={this.onSubmit}
                         validateOnChange={true}
                         validateOnBlur={true}
@@ -98,6 +101,10 @@ class CourseComponent extends Component {
                                         <label>Id</label>
                                         {/* Creating a disabled text element for id. The name of element should match the name in state. */}
                                         <Field data-testid="courseId" className="form-control" type="text" name="id" disabled />
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Username</label>
+                                        <Field data-testid="courseUsername" className="form-control" type="text" name="username" />
                                     </fieldset>
                                     <fieldset className="form-group">
                                         <label>Description</label>
